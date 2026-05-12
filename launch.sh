@@ -32,6 +32,7 @@ podman run \
 	--security-opt seccomp=unconfined \
 	--security-opt label=disable \
 	--ipc=host \
+	--userns keep-id:uid=1000,gid=1000 \
 	$DISP \
 	$AUDIO \
 	$DEV_MOUNT \
