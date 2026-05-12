@@ -1,0 +1,19 @@
+DEV_MOUNT=""
+
+for d in /dev/bus/usb /dev/input
+do
+	DEV_MOUNT="$DEV_MOUNT -v $d:$d"
+done
+
+for hidraw in /dev/hidraw*
+do
+	if [ -e "$hidraw" ]
+	then
+		DEV_MOUNT="$DEV_MOUNT -v $hidraw:$hidraw"
+	fi
+done
+
+if [ -e /dev/dri ]
+then
+	DEV_MOUNT="$DEV_MOUNT -v /dev/dri:/dev/dri"
+fi

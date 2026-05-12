@@ -1,0 +1,23 @@
+AUDIO=""
+
+if [ -n "$PULSE_SERVER" ]
+then
+	AUDIO="$AUDIO --env PULSE_SERVER=$PULSE_SERVER"
+else
+	if [ -e "${XDG_RUNTIME_DIR}/pulse/native" ]
+	then
+		AUDIO="$AUDIO --env PULSE_SERVER=${XDG_RUNTIME_DIR}/pulse/native"
+		AUDIO="$AUDIO -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native"
+	fi
+fi
+
+if [ -z "$PIPEWIRE_REMOTE" ]
+then
+	PIPEWIRE_REMOTE=pipewire-0
+fi
+
+if [ -e "${XDG_RUNTIME_DIR}/$PIPEWIRE_REMOTE" ]
+then
+	AUDIO="$AUDIO --env PIPEWIRE_RUNTIME_DIR=${XDG_RUNTIME_DIR}"
+	AUDIO="$AUDIO -v ${XDG_RUNTIME_DIR}/$PIPEWIRE_REMOTE:${XDG_RUNTIME_DIR}/$PIPEWIRE_REMOTE"
+fi

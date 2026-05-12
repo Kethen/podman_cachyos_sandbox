@@ -1,0 +1,29 @@
+DISP=""
+
+if [ -e "/tmp/.X11-unix" ]
+then
+	DISP="$DISP -v /tmp/.X11-unix:/tmp/.X11-unix"
+fi
+
+if [ -n "$DISPLAY" ]
+then
+	DISP="$DISP --env DISPLAY=$DISPLAY"
+fi
+
+if [ -n "$XAUTHORITY" ] && [ -e "$XAUTHORITY" ]
+then
+	DISP="$DISP --env XAUTHORITY=$XAUTHORITY"
+	DISP="$DISP -v $XAUTHORITY:$XAUTHORITY"
+fi
+
+if [ -e "$WAYLAND_DISPLAY" ]
+then
+	DISP="$DISP --env WAYLAND_DISPLAY=$WAYLAND_DISPLAY"
+	DISP="$DISP -v $WAYLAND_DISPLAY:$WAYLAND_DISPLAY"
+fi
+
+if [ -e "$XDG_RUNTIME_DIR"/"$WAYLAND_DISPLAY" ]
+then
+	DISP="$DISP --env WAYLAND_DISPLAY=${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}"
+	DISP="$DISP -v ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}"
+fi
