@@ -28,6 +28,8 @@ then
 	podman image build -f Dockerfile -t $TAG_NAME
 fi
 
+bash -c "
+set -xe
 podman run \
 	--rm -it \
 	--ulimit host \
@@ -46,3 +48,4 @@ podman run \
 	--entrypoint /bin/bash \
 	$TAG_NAME \
 	/script
+"

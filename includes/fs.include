@@ -1,41 +1,18 @@
-RW_MOUNT='
-./home_dir /home_dir
-'
+add_mount () {
+	mkdir -p "$1"
+	MOUNT="$MOUNT -v '$1':'$2'"
+	if [ -n "$3" ]
+	then
+		MOUNT="$MOUNT:$3"
+	fi
+}
 
-RO_MOUNT='
-./ro_mnt /ro_mnt
-'
 
 MOUNT=""
-i=0
-for m in $RW_MOUNT
-do
-	if [ $((i % 2)) == 0 ]
-	then
-		mount_src=$m
-		mkdir -p "$mount_src"
-	else
-		mount_tgt=$m
-		MOUNT="$MOUNT -v $mount_src:$mount_tgt"
-	fi
-
-	i=$((i + 1))
-done
-
-i=0
-for m in $RO_MOUNT
-do
-	if [ $((i % 2)) == 0 ]
-	then
-		mount_src=$m
-		mkdir -p "$mount_src"
-	else
-		mount_tgt=$m
-		MOUNT="$MOUNT -v $mount_src:$mount_tgt:ro"
-	fi
-
-	i=$((i + 1))
-done
+add_mount "./home_dir" "/home_dir"
+add_mount "./ro_mnt" "/ro mnt" ro
 
 MOUNT="$MOUNT -w /home_dir"
 MOUNT="$MOUNT --env HOME=/home_dir"
+
+unset -f add_mount
