@@ -6,10 +6,7 @@ GAME_MERGED="./game_merged"
 
 MODS=""
 
-while umount "$GAME_MERGED"
-do
-	true
-done
+source ./includes/mods_cleanup.include
 
 if which fuse-overlayfs
 then
