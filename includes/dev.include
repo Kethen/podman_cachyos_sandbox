@@ -17,3 +17,8 @@ if [ -e /dev/dri ]
 then
 	DEV_MOUNT="$DEV_MOUNT -v /dev/dri:/dev/dri"
 fi
+
+if [ -e /dev/ntsync ]
+then
+	DEV_MOUNT="$DEV_MOUNT -v /dev/ntsync:/dev/ntsync"
+fi
