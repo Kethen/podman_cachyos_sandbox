@@ -10,6 +10,9 @@ RUN pacman -S --noconfirm extra/pavucontrol extra/helvum cachyos-extra-v3/lxterm
 RUN pacman -S --noconfirm cachyos-extra-v3/hidapi
 RUN pacman -S --noconfirm cachyos-extra-v3/sdl3 cachyos-extra-v3/sdl2-compat
 
+# mangohud
+RUN pacman -S --noconfirm cachyos-extra-v3/mangohud multilib/lib32-mangohud
+
 # steam
 RUN pacman -S --noconfirm cachyos-v3/gamescope multilib/steam
 RUN sed -i 's/"$(id -u)" == "0"/"$(id -u)" == "1"/' /usr/lib/steam/bin_steam.sh
