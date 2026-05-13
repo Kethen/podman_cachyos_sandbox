@@ -9,6 +9,7 @@ RUN pacman -S --noconfirm cachyos/mesa cachyos/lib32-mesa cachyos/vulkan-radeon 
 RUN pacman -S --noconfirm extra/pavucontrol extra/helvum cachyos-extra-v3/lxterminal cachyos-extra-v3/evtest cachyos-core-v3/nano cachyos-extra-v3/glmark2 cachyos-extra-v3/libva-utils cachyos-extra-v3/firefox cachyos-extra-v3/thunar
 RUN pacman -S --noconfirm cachyos-extra-v3/hidapi
 RUN pacman -S --noconfirm cachyos-extra-v3/sdl3 cachyos-extra-v3/sdl2-compat
+RUN pacman -S --noconfirm cachyos-extra-v3/vulkan-tools cachyos-extra-v3/mesa-utils cachyos-extra-v3/wayland-utils
 
 # mangohud
 RUN pacman -S --noconfirm cachyos-extra-v3/mangohud multilib/lib32-mangohud
