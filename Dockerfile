@@ -6,7 +6,7 @@ RUN pacman -S --noconfirm cachyos/mesa cachyos/lib32-mesa cachyos/vulkan-radeon 
 #RUN pacman -S --noconfirm cachyos-v3/mesa-git cachyos-v3/lib32-mesa-git 
 
 # debugging & libraries
-RUN pacman -S --noconfirm extra/pavucontrol extra/helvum cachyos-extra-v3/lxterminal cachyos-extra-v3/evtest cachyos-core-v3/nano cachyos-extra-v3/glmark2 cachyos-extra-v3/libva-utils cachyos-extra-v3/firefox
+RUN pacman -S --noconfirm extra/pavucontrol extra/helvum cachyos-extra-v3/lxterminal cachyos-extra-v3/evtest cachyos-core-v3/nano cachyos-extra-v3/glmark2 cachyos-extra-v3/libva-utils cachyos-extra-v3/firefox cachyos-extra-v3/thunar
 RUN pacman -S --noconfirm cachyos-extra-v3/hidapi
 RUN pacman -S --noconfirm cachyos-extra-v3/sdl3 cachyos-extra-v3/sdl2-compat
 
@@ -38,3 +38,7 @@ RUN chmod 755 /usr/bin/motoc
 RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -si --noconfirm
 RUN git clone https://aur.archlinux.org/bottles.git; cd bottles; env EUID=1 makepkg -si --noconfirm
 RUN pacman -S --noconfirm cachyos/protonup-qt
+
+# machine id
+RUN pacman -S --noconfirm vim
+RUN dd if=/dev/random bs=1 count=32 | xxd -p > /etc/machine-id
