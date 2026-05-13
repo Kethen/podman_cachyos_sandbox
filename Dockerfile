@@ -37,3 +37,4 @@ RUN chmod 755 /usr/bin/motoc
 # bottles
 RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -si --noconfirm
 RUN git clone https://aur.archlinux.org/bottles.git; cd bottles; env EUID=1 makepkg -si --noconfirm
+RUN pacman -S --noconfirm cachyos/protonup-qt
