@@ -33,6 +33,7 @@ podman run \
 	--security-opt label=disable \
 	--ipc=host \
 	--userns keep-id:uid=1000,gid=1000 \
+	--net=host \
 	$DISP \
 	$AUDIO \
 	$DEV_MOUNT \
