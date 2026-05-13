@@ -38,6 +38,7 @@ RUN dnf install -y cargo git gcc openxr-devel
 RUN cargo install --git https://github.com/galister/motoc.git
 RUN cp /root/.cargo/bin/motoc /usr/bin/motoc
 RUN chmod 755 /usr/bin/motoc
+RUN dnf install -y android-tools
 
 # bottles
 RUN dnf install -y bottles
