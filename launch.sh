@@ -14,7 +14,7 @@ echo $AUDIO
 echo $DEV_MOUNT
 echo $MOUNT
 
-TAG_NAME="podman_cachyos_sandbox"
+TAG_NAME="podman_fedora_sandbox"
 
 if [ "$UPDATE_IMAGE" == "true" ]
 then
