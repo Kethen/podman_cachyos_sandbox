@@ -34,6 +34,7 @@ RUN pacman -S --noconfirm cachyos-extra-v3/cargo cachyos-extra-v3/openxr
 RUN cargo install --git https://github.com/galister/motoc.git
 RUN cp /root/.cargo/bin/motoc /usr/bin/motoc
 RUN chmod 755 /usr/bin/motoc
+RUN pacman -S --noconfirm cachyos-extra-v3/android-tools
 
 # bottles
 RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -si --noconfirm
