@@ -12,6 +12,7 @@ RUN pacman -S --noconfirm cachyos-extra-v3/sdl3 cachyos-extra-v3/sdl2-compat
 
 # steam
 RUN pacman -S --noconfirm cachyos-v3/gamescope multilib/steam
+RUN sed -i 's/"$(id -u)" == "0"/"$(id -u)" == "1"/' /usr/lib/steam/bin_steam.sh
 
 # fonts
 RUN pacman -S --noconfirm extra/noto-fonts extra/noto-fonts-cjk extra/noto-fonts-emoji extra/noto-fonts-extra

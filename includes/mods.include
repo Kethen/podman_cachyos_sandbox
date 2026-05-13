@@ -1,0 +1,58 @@
+MOD_DIR="./mods"
+GAME_DIR="./game_base"
+GAME_UPPER_DIR="./game_upper"
+GAME_WORK_DIR="./game_work"
+GAME_MERGED="./game_merged"
+
+MODS=""
+
+mkdir -p "$GAME_DIR"
+mkdir -p "$MOD_DIR"/00_dummy_mod
+touch "$MOD_DIR"/00_dummy_mod/mod_loader_active
+mkdir -p "$GAME_UPPER_DIR"
+mkdir -p "$GAME_WORK_DIR"
+mkdir -p "$GAME_MERGED"
+
+mkdir -p "$GAME_DIR"
+mkdir -p "$MOD_DIR"/00_dummy_mod
+touch "$MOD_DIR"/00_dummy_mod/mod_loader_active
+mkdir -p "$GAME_UPPER_DIR"
+mkdir -p "$GAME_WORK_DIR"
+
+while umount "$GAME_MERGED"
+do
+	true
+done
+
+if which fuse-overlayfs
+then
+	mkdir -p "$GAME_DIR"
+	mkdir -p "$MOD_DIR"/00_dummy_mod
+	touch "$MOD_DIR"/00_dummy_mod/mod_loader_active
+	mkdir -p "$GAME_UPPER_DIR"
+	mkdir -p "$GAME_WORK_DIR"
+	mkdir -p "$GAME_MERGED"
+
+	LOWER_DIRS=""
+	first_entry=true
+	for d in $(ls "$MOD_DIR" | sort -r)
+	do
+		if $first_entry
+		then
+			LOWER_DIRS="$MOD_DIR/$d"
+			first_entry=false
+		else
+			LOWER_DIRS="$MOD_DIRS:$MOD_DIR/$d"
+		fi
+	done
+	LOWER_DIRS="$LOWER_DIRS:$GAME_DIR"
+
+	fuse-overlayfs -o lowerdir=$LOWER_DIRS -o upperdir=$GAME_UPPER_DIR -o workdir=$GAME_WORK_DIR $GAME_MERGED
+
+	MODS="$MODS -v $GAME_MERGED:/game"
+else
+	echo fuse-overlayfsd not installed, mod loader disabled
+	mkdir -p $GAME_DIR
+	MODS="$MODS -v $GAME_DIR:/game:ro"
+fi
+
