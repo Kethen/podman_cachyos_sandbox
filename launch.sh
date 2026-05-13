@@ -49,3 +49,5 @@ podman run \
 	$TAG_NAME \
 	/script
 "
+
+source ./includes/mods_cleanup.include

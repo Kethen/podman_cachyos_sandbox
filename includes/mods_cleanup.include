@@ -1,0 +1,4 @@
+while umount "$GAME_MERGED"
+do
+	true
+done
