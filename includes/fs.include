@@ -2,6 +2,10 @@ RW_MOUNT='
 ./home_dir /home_dir
 '
 
+RO_MOUNT='
+./ro_mnt /ro_mnt
+'
+
 MOUNT=""
 i=0
 for m in $RW_MOUNT
@@ -13,6 +17,21 @@ do
 	else
 		mount_tgt=$m
 		MOUNT="$MOUNT -v $mount_src:$mount_tgt"
+	fi
+
+	i=$((i + 1))
+done
+
+i=0
+for m in $RO_MOUNT
+do
+	if [ $((i % 2)) == 0 ]
+	then
+		mount_src=$m
+		mkdir -p "$mount_src"
+	else
+		mount_tgt=$m
+		MOUNT="$MOUNT -v $mount_src:$mount_tgt:ro"
 	fi
 
 	i=$((i + 1))
