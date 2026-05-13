@@ -8,11 +8,13 @@ source ./includes/display.include
 source ./includes/audio.include
 source ./includes/dev.include
 source ./includes/fs.include
+source ./includes/mods.include
 
 echo $DISP
 echo $AUDIO
 echo $DEV_MOUNT
 echo $MOUNT
+echo $MODS
 
 TAG_NAME="podman_fedora_sandbox"
 
@@ -32,12 +34,14 @@ podman run \
 	--security-opt seccomp=unconfined \
 	--security-opt label=disable \
 	--ipc=host \
-	--userns keep-id:uid=1000,gid=1000 \
+	`#--userns keep-id:uid=1000,gid=1000` \
+	--cap-add=all \
 	--net=host \
 	$DISP \
 	$AUDIO \
 	$DEV_MOUNT \
 	$MOUNT \
+	$MODS \
 	-v ./script:/script:ro \
 	--entrypoint /bin/bash \
 	$TAG_NAME \

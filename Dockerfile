@@ -18,6 +18,7 @@ RUN dnf install -y lxterminal pipewire-utils pavucontrol libva-utils vulkan-tool
 
 # steam
 RUN dnf install -y steam util-linux
+RUN sed -i 's/"$(id -u)" == "0"/"$(id -u)" == "1"/' /usr/lib/steam/bin_steam.sh
 
 # misc
 RUN dnf install -y mangohud
