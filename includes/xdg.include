@@ -1,0 +1,3 @@
+XDG=""
+XDG="$XDG --tmpfs /tmp/xdg"
+XDG="$XDG --env XDG_RUNTIME_DIR=/tmp/xdg"
