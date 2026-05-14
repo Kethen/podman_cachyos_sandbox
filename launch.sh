@@ -4,13 +4,14 @@ script_dir=$(realpath "$0")
 script_dir=$(dirname ${script_dir})
 cd "$script_dir"
 
+source ./includes/xdg.include
 source ./includes/display.include
 source ./includes/audio.include
 source ./includes/dev.include
 source ./includes/fs.include
 source ./includes/mods.include
-source ./includes/xdg.include
 
+echo $XDG
 echo $DISP
 echo $AUDIO
 echo $DEV_MOUNT
@@ -40,12 +41,12 @@ podman run \
 	`#--userns keep-id:uid=1000,gid=1000` \
 	--cap-add=all \
 	--net=host \
+	$XDG \
 	$DISP \
 	$AUDIO \
 	$DEV_MOUNT \
 	$MOUNT \
 	$MODS \
-	$XDG \
 	-v ./script:/script:ro \
 	--entrypoint /bin/bash \
 	$TAG_NAME \

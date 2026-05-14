@@ -1,3 +1,5 @@
 XDG=""
-XDG="$XDG --tmpfs /tmp/xdg"
-XDG="$XDG --env XDG_RUNTIME_DIR=/tmp/xdg"
+XDG_CUSTOM="$(pwd)/xdg"
+mkdir -p "$XDG_CUSTOM"
+XDG="$XDG -v '$XDG_CUSTOM':'$XDG_CUSTOM'"
+XDG="$XDG --env XDG_RUNTIME_DIR='$XDG_CUSTOM'"

@@ -25,7 +25,7 @@ RUN pacman -S --noconfirm extra/noto-fonts extra/noto-fonts-cjk extra/noto-fonts
 RUN pacman -S --noconfirm cachyos-extra-v3/git
 
 # VR
-RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; env EUID=1 makepkg -si --noconfirm; setcap -r /usr/bin/wivrn-server
+RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; sed -i 's/"libpipewire"/"libpipewire" "libpulse"' PKGBUILD; sed -i 's/-DWIVRN_USE_VAAPI=ON/-DWIVRN_USE_VAAPI=ON -DWIVRN_USE_PULSEAUDIO=ON/' PKGBUILD; env EUID=1 makepkg -si --noconfirm; setcap -r /usr/bin/wivrn-server
 RUN mv /usr/bin/wivrn-server /usr/bin/wivrn-server-orig
 RUN echo '#!/bin/bash' > /usr/bin/wivrn-server
 RUN echo '/usr/bin/wivrn-server-orig --no-publish-service "$@"' >> /usr/bin/wivrn-server
