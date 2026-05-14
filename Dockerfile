@@ -43,6 +43,9 @@ RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -s
 RUN git clone https://aur.archlinux.org/bottles.git; cd bottles; env EUID=1 makepkg -si --noconfirm
 RUN pacman -S --noconfirm cachyos/protonup-qt
 
+# Sunshine
+RUN pacman -S --noconfirm cachyos/sunshine
+
 # machine id
 RUN pacman -S --noconfirm vim
 RUN dd if=/dev/random bs=1 count=32 | xxd -p > /etc/machine-id
