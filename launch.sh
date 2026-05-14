@@ -9,6 +9,7 @@ source ./includes/audio.include
 source ./includes/dev.include
 source ./includes/fs.include
 source ./includes/mods.include
+source ./includes/xdg.include
 
 echo $DISP
 echo $AUDIO
@@ -44,6 +45,7 @@ podman run \
 	$DEV_MOUNT \
 	$MOUNT \
 	$MODS \
+	$XDG \
 	-v ./script:/script:ro \
 	--entrypoint /bin/bash \
 	$TAG_NAME \

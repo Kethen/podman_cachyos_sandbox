@@ -35,6 +35,8 @@ RUN cargo install --git https://github.com/galister/motoc.git
 RUN cp /root/.cargo/bin/motoc /usr/bin/motoc
 RUN chmod 755 /usr/bin/motoc
 RUN pacman -S --noconfirm cachyos-extra-v3/android-tools
+RUN git clone https://aur.archlinux.org/xrizer.git; cd xrizer; env EUID=1 makepkg -si --noconfirm
+RUN git clone https://aur.archlinux.org/opencomposite-git.git; cd opencomposite-git; env EUID=1 makepkg -si --noconfirm
 
 # bottles
 RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -si --noconfirm
