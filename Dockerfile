@@ -6,7 +6,7 @@ RUN pacman -S --noconfirm cachyos/mesa cachyos/lib32-mesa cachyos/vulkan-radeon 
 #RUN pacman -S --noconfirm cachyos-v3/mesa-git cachyos-v3/lib32-mesa-git 
 
 # debugging & libraries
-RUN pacman -S --noconfirm extra/pavucontrol extra/helvum cachyos-extra-v3/lxterminal cachyos-extra-v3/evtest cachyos-core-v3/nano cachyos-extra-v3/glmark2 cachyos-extra-v3/libva-utils cachyos-extra-v3/firefox cachyos-extra-v3/thunar cachyos-extra-v3/kate
+RUN pacman -S --noconfirm extra/pavucontrol extra/helvum cachyos-extra-v3/lxterminal cachyos-extra-v3/evtest cachyos-core-v3/nano cachyos-extra-v3/glmark2 cachyos-extra-v3/libva-utils extra/firefox cachyos-extra-v3/thunar cachyos-extra-v3/kate
 RUN pacman -S --noconfirm cachyos-extra-v3/hidapi
 RUN pacman -S --noconfirm cachyos-extra-v3/sdl3 cachyos-extra-v3/sdl2-compat
 RUN pacman -S --noconfirm cachyos-extra-v3/vulkan-tools cachyos-extra-v3/mesa-utils cachyos-extra-v3/wayland-utils
@@ -25,9 +25,9 @@ RUN pacman -S --noconfirm extra/noto-fonts extra/noto-fonts-cjk extra/noto-fonts
 RUN pacman -S --noconfirm cachyos-extra-v3/git
 
 # VR
-#RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; sed -i 's/"libpipewire"/"libpipewire" "libpulse"' PKGBUILD; sed -i 's/-DWIVRN_USE_VAAPI=ON/-DWIVRN_USE_VAAPI=ON -DWIVRN_USE_PULSEAUDIO=ON/' PKGBUILD; env EUID=1 makepkg -si --noconfirm; setcap -r /usr/bin/wivrn-server
+#RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; sed -i 's/"libpipewire"/"libpipewire" "libpulse"' PKGBUILD; sed -i 's/-DWIVRN_USE_VAAPI=ON/-DWIVRN_USE_VAAPI=ON -DWIVRN_USE_PULSEAUDIO=ON/' PKGBUILD; env EUID=1 makepkg -sir --noconfirm; setcap -r /usr/bin/wivrn-server; cd ..; rm -r wivrn-server
 RUN pacman -S --noconfirm cachyos-extra-v3/pipewire-audio # seems to be missing from wivrn deps, required for virtual audio device
-RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; env EUID=1 makepkg -si --noconfirm; setcap -r /usr/bin/wivrn-server
+RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; env EUID=1 makepkg -sir --noconfirm; setcap -r /usr/bin/wivrn-server; cd ..; rm -r wivrn-server
 RUN mv /usr/bin/wivrn-server /usr/bin/wivrn-server-orig
 RUN echo '#!/bin/bash' > /usr/bin/wivrn-server
 RUN echo '/usr/bin/wivrn-server-orig --no-publish-service "$@"' >> /usr/bin/wivrn-server
@@ -37,12 +37,12 @@ RUN cargo install --git https://github.com/galister/motoc.git
 RUN cp /root/.cargo/bin/motoc /usr/bin/motoc
 RUN chmod 755 /usr/bin/motoc
 RUN pacman -S --noconfirm cachyos-extra-v3/android-tools
-RUN git clone https://aur.archlinux.org/xrizer.git; cd xrizer; env EUID=1 makepkg -si --noconfirm
-RUN git clone https://aur.archlinux.org/opencomposite-git.git; cd opencomposite-git; env EUID=1 makepkg -si --noconfirm
+RUN git clone https://aur.archlinux.org/xrizer.git; cd xrizer; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer
+RUN git clone https://aur.archlinux.org/opencomposite-git.git; cd opencomposite-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r opencomposite-git
 
 # bottles
-RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -si --noconfirm
-RUN git clone https://aur.archlinux.org/bottles.git; cd bottles; env EUID=1 makepkg -si --noconfirm
+RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r fvs2
+RUN git clone https://aur.archlinux.org/bottles.git; cd bottles; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r bottles
 RUN pacman -S --noconfirm cachyos/protonup-qt
 
 # Sunshine
@@ -51,3 +51,6 @@ RUN pacman -S --noconfirm cachyos/sunshine
 # machine id
 RUN pacman -S --noconfirm vim
 RUN dd if=/dev/random bs=1 count=32 | xxd -p > /etc/machine-id
+
+# clean package cache
+RUN rm /var/cache/pacman/pkg/*
