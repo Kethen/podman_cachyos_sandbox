@@ -27,7 +27,7 @@ fi
 
 if ! podman image exists $TAG_NAME
 then
-	podman image build --no-cache -f Dockerfile -t $TAG_NAME
+	podman image build --no-cache --layers=false -f Dockerfile -t $TAG_NAME
 fi
 
 bash -c "

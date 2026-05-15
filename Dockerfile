@@ -45,3 +45,6 @@ RUN dnf install -y bottles
 
 # random machine-id
 RUN dd if=/dev/random bs=1 count=16 | xxd -p > /etc/machine-id
+
+# clean package cache
+RUN dnf clean all
