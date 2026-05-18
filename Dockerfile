@@ -52,5 +52,8 @@ RUN pacman -S --noconfirm cachyos/sunshine
 RUN pacman -S --noconfirm vim
 RUN dd if=/dev/random bs=1 count=32 | xxd -p > /etc/machine-id
 
+# wine staging
+RUN pacman -S --noconfirm cachyos-extra-v3/wine-staging
+
 # clean package cache
 RUN rm /var/cache/pacman/pkg/*
