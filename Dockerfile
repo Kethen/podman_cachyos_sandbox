@@ -14,7 +14,7 @@ RUN dnf swap -y mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
 RUN dnf swap -y mesa-vdpau-drivers.i686 mesa-vdpau-drivers-freeworld.i686
 
 # debug
-RUN dnf install -y lxterminal pipewire-utils pavucontrol libva-utils vulkan-tools glx-utils less strace ncurses file helvum nano Thunar vim
+RUN dnf install -y lxterminal pipewire-utils pavucontrol libva-utils vulkan-tools glx-utils less strace ncurses file helvum nano Thunar vim kate
 
 # steam
 RUN dnf install -y steam util-linux
