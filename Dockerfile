@@ -46,6 +46,10 @@ RUN dnf install -y bottles
 # wine
 RUN dnf install -y wine
 
+# sunshine
+RUN dnf copr enable -y lizardbyte/stable
+RUN dnf install -y Sunshine
+
 # random machine-id
 RUN dd if=/dev/random bs=1 count=16 | xxd -p > /etc/machine-id
 
