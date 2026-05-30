@@ -22,3 +22,8 @@ if [ -e /dev/ntsync ]
 then
 	DEV_MOUNT="$DEV_MOUNT -v /dev/ntsync:/dev/ntsync"
 fi
+
+if [ -e /dev/uinput ]
+then
+	DEV_MOUNT="$DEV_MOUNT -v /dev/uinput:/dev/uinput"
+fi
