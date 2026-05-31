@@ -37,7 +37,8 @@ RUN cargo install --git https://github.com/galister/motoc.git
 RUN cp /root/.cargo/bin/motoc /usr/bin/motoc
 RUN chmod 755 /usr/bin/motoc
 RUN pacman -S --noconfirm android-tools
-RUN git clone https://aur.archlinux.org/xrizer.git; cd xrizer; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer
+#RUN git clone https://aur.archlinux.org/xrizer.git; cd xrizer; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer
+RUN git clone https://aur.archlinux.org/xrizer-git.git; cd xrizer-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer-git
 RUN git clone https://aur.archlinux.org/opencomposite-git.git; cd opencomposite-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r opencomposite-git
 
 # bottles
