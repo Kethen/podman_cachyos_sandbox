@@ -25,21 +25,23 @@ RUN pacman -S --noconfirm noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-
 RUN pacman -S --noconfirm git
 
 # VR
-#RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; sed -i 's/"libpipewire"/"libpipewire" "libpulse"' PKGBUILD; sed -i 's/-DWIVRN_USE_VAAPI=ON/-DWIVRN_USE_VAAPI=ON -DWIVRN_USE_PULSEAUDIO=ON/' PKGBUILD; env EUID=1 makepkg -sir --noconfirm; setcap -r /usr/bin/wivrn-server; cd ..; rm -r wivrn-server
+#RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; sed -i 's/"libpipewire"/"libpipewire" "libpulse"/' PKGBUILD; sed -i 's/-DWIVRN_USE_VAAPI=ON/-DWIVRN_USE_VAAPI=ON -DWIVRN_USE_PULSEAUDIO=ON/' PKGBUILD; env EUID=1 makepkg -sir --noconfirm; setcap -r /usr/bin/wivrn-server; cd ..; rm -r wivrn-server
 RUN pacman -S --noconfirm pipewire-audio # seems to be missing from wivrn deps, required for virtual audio device
 RUN git clone https://aur.archlinux.org/wivrn-server.git; cd wivrn-server; env EUID=1 makepkg -sir --noconfirm; setcap -r /usr/bin/wivrn-server; cd ..; rm -r wivrn-server
 RUN mv /usr/bin/wivrn-server /usr/bin/wivrn-server-orig
 RUN echo '#!/bin/bash' > /usr/bin/wivrn-server
 RUN echo '/usr/bin/wivrn-server-orig --no-publish-service "$@"' >> /usr/bin/wivrn-server
 RUN chmod 755 /usr/bin/wivrn-server
-RUN pacman -S --noconfirm cargo openxr
-RUN cargo install --git https://github.com/galister/motoc.git
-RUN cp /root/.cargo/bin/motoc /usr/bin/motoc
-RUN chmod 755 /usr/bin/motoc
+#RUN pacman -S --noconfirm cargo openxr
+#RUN cargo install --git https://github.com/galister/motoc.git
+#RUN cp /root/.cargo/bin/motoc /usr/bin/motoc
+#RUN chmod 755 /usr/bin/motoc
 RUN pacman -S --noconfirm android-tools
 #RUN git clone https://aur.archlinux.org/xrizer.git; cd xrizer; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer
-RUN git clone https://aur.archlinux.org/xrizer-git.git; cd xrizer-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer-git
+#RUN git clone https://aur.archlinux.org/xrizer-git.git; cd xrizer-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer-git
+RUN git clone https://aur.archlinux.org/xrizer-git.git; cd xrizer-git; sed -i 's#url="https://github.com/Supreeeme/xrizer"#url="https://github.com/Kethen/xrizer"#' PKGBUILD; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r xrizer-git
 RUN git clone https://aur.archlinux.org/opencomposite-git.git; cd opencomposite-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r opencomposite-git
+RUN git clone https://aur.archlinux.org/motoc-git.git; cd motoc-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r motoc-git
 
 # bottles
 RUN git clone https://aur.archlinux.org/fvs2.git; cd fvs2; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r fvs2
