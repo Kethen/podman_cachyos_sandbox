@@ -1,0 +1,7 @@
+DECK_SDL=""
+
+while read -r LINE
+do
+	e=$(echo "$LINE" | sed -e 's/declare -x //')
+	DECK_SDL="$DECK_SDL --env '$e'"
+done <<< $(export | grep 'declare -x SDL_')

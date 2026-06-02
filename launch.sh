@@ -1,3 +1,5 @@
+#!/bin/bash
+
 set -xe
 
 script_dir=$(realpath "$0")
@@ -10,6 +12,7 @@ source ./includes/audio.include
 source ./includes/dev.include
 source ./includes/fs.include
 source ./includes/mods.include
+source ./includes/deck_sdl.include
 
 echo $XDG
 echo $DISP
@@ -17,6 +20,7 @@ echo $AUDIO
 echo $DEV_MOUNT
 echo $MOUNT
 echo $MODS
+echo $DECK_SDL
 
 TAG_NAME="podman_cachyos_sandbox"
 
@@ -47,6 +51,7 @@ podman run \
 	$DEV_MOUNT \
 	$MOUNT \
 	$MODS \
+	$DECK_SDL \
 	-v ./script:/script:ro \
 	--entrypoint /bin/bash \
 	$TAG_NAME \
