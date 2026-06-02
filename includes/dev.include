@@ -27,3 +27,8 @@ if [ -e /dev/uinput ]
 then
 	DEV_MOUNT="$DEV_MOUNT -v /dev/uinput:/dev/uinput"
 fi
+
+if [ -e /dev/kvm ]
+then
+	DEV_MOUNT="$DEV_MOUNT -v /dev/kvm:/dev/kvm"
+fi

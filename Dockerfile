@@ -58,5 +58,8 @@ RUN dd if=/dev/random bs=1 count=32 | xxd -p > /etc/machine-id
 # wine
 RUN pacman -S --noconfirm wine
 
+# qemu
+RUN pacman -S --noconfirm qemu-full
+
 # clean package cache
 RUN rm /var/cache/pacman/pkg/*
