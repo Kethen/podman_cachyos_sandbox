@@ -1,0 +1,8 @@
+[Unit]
+Description=seatd
+
+[Service]
+ExecStart=bash -c '/usr/bin/seatd -u katharine -g katharine'
+
+[Install]
+WantedBy=multi-user.target

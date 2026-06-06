@@ -1,34 +1,24 @@
 DEV_MOUNT=""
 
-for d in /dev/bus/usb /dev/input
-do
-	DEV_MOUNT="$DEV_MOUNT -v $d:$d"
-done
+add_dev_if_exists () {
+	if [ -e "$1" ]
+	then
+		DEV_MOUNT="$DEV_MOUNT -v '$1':'$1'"
+	fi
+}
 
 for hidraw in /dev/hidraw*
 do
-	if [ -e "$hidraw" ]
-	then
-		DEV_MOUNT="$DEV_MOUNT -v $hidraw:$hidraw"
-	fi
+	add_dev_if_exists "$hidraw"
 done
 
-if [ -e /dev/dri ]
-then
-	DEV_MOUNT="$DEV_MOUNT -v /dev/dri:/dev/dri"
-fi
+add_dev_if_exists /dev/input
+add_dev_if_exists /dev/dri
+add_dev_if_exists /dev/ntsync
+add_dev_if_exists /dev/uinput
+add_dev_if_exists /dev/kvm
 
-if [ -e /dev/ntsync ]
-then
-	DEV_MOUNT="$DEV_MOUNT -v /dev/ntsync:/dev/ntsync"
-fi
-
-if [ -e /dev/uinput ]
-then
-	DEV_MOUNT="$DEV_MOUNT -v /dev/uinput:/dev/uinput"
-fi
-
-if [ -e /dev/kvm ]
-then
-	DEV_MOUNT="$DEV_MOUNT -v /dev/kvm:/dev/kvm"
-fi
+# gamescope mode, requires seatd running and the socket accessible for your current user
+# steam has to be initialized already as well, otherwise it'll get stuck for not being able to communicate with NetworkManager
+add_dev_if_exists /run/seatd.sock
+add_dev_if_exists /run/udev

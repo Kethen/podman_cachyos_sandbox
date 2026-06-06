@@ -6,7 +6,7 @@ RUN pacman -S --noconfirm mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulk
 #RUN pacman -S --noconfirm mesa-git lib32-mesa-git
 
 # debugging & libraries
-RUN pacman -S --noconfirm pavucontrol helvum lxterminal evtest nano glmark2 libva-utils firefox thunar kate
+RUN pacman -S --noconfirm pavucontrol helvum lxterminal evtest nano glmark2 libva-utils firefox thunar kate libinput-tools
 RUN pacman -S --noconfirm hidapi
 RUN pacman -S --noconfirm sdl3 sdl2-compat
 RUN pacman -S --noconfirm vulkan-tools mesa-utils wayland-utils
@@ -60,6 +60,12 @@ RUN pacman -S --noconfirm wine
 
 # qemu
 RUN pacman -S --noconfirm qemu-full
+
+# gamescope session
+RUN git clone https://aur.archlinux.org/gamescope-session-git.git; cd gamescope-session-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r gamescope-session-git
+RUN git clone https://aur.archlinux.org/gamescope-session-steam-git.git; cd gamescope-session-steam-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r gamescope-session-steam-git
+# undo gamescope cap
+RUN setcap -r /usr/bin/gamescope
 
 # clean package cache
 RUN rm /var/cache/pacman/pkg/*
