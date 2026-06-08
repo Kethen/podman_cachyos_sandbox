@@ -45,6 +45,7 @@ podman run \
 	`#--userns keep-id:uid=1000,gid=1000,size=1000` \
 	--cap-add=all \
 	--net=host \
+	--tz=local \
 	$XDG \
 	$DISP \
 	$AUDIO \
