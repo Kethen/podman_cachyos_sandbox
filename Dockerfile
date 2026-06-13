@@ -6,9 +6,9 @@ RUN pacman -S --noconfirm mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon vulk
 #RUN pacman -S --noconfirm mesa-git lib32-mesa-git
 
 # debugging & libraries
+RUN pacman -S --noconfirm sdl3 sdl2-compat
 RUN pacman -S --noconfirm pavucontrol helvum lxterminal evtest nano glmark2 libva-utils firefox thunar kate libinput-tools
 RUN pacman -S --noconfirm hidapi
-RUN pacman -S --noconfirm sdl3 sdl2-compat
 RUN pacman -S --noconfirm vulkan-tools mesa-utils wayland-utils
 
 # mangohud
@@ -53,7 +53,7 @@ RUN pacman -S --noconfirm sunshine
 
 # machine id
 RUN pacman -S --noconfirm vim
-RUN dd if=/dev/random bs=1 count=32 | xxd -p > /etc/machine-id
+RUN dd if=/dev/random bs=1 count=16 | xxd -p > /etc/machine-id
 
 # wine
 RUN pacman -S --noconfirm wine winetricks
