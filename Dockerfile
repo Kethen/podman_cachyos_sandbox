@@ -56,7 +56,7 @@ RUN pacman -S --noconfirm vim
 RUN dd if=/dev/random bs=1 count=16 | xxd -p > /etc/machine-id
 
 # wine
-RUN pacman -S --noconfirm wine winetricks
+RUN pacman -S --noconfirm wine winetricks wine-mono
 
 # qemu
 RUN pacman -S --noconfirm qemu-full
