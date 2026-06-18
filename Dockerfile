@@ -67,5 +67,8 @@ RUN git clone https://aur.archlinux.org/gamescope-session-steam-git.git; cd game
 # undo gamescope cap
 RUN setcap -r /usr/bin/gamescope
 
+# 32 bit wine pulseaudio
+RUN pacman -S --noconfirm lib32-libpulse
+
 # clean package cache
 RUN rm /var/cache/pacman/pkg/*
