@@ -1,0 +1,3 @@
+#!/bin/bash
+cd $HOME/Games/steam_session
+bash launch.sh
