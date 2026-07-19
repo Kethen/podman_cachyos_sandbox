@@ -3,7 +3,7 @@
 set -xe
 
 script_dir=$(realpath "$0")
-script_dir=$(dirname ${script_dir})
+script_dir=$(dirname "$script_dir")
 cd "$script_dir"
 
 source ./includes/xdg.include
