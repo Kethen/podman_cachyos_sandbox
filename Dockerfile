@@ -65,7 +65,7 @@ RUN pacman -S --noconfirm qemu-full
 RUN git clone https://aur.archlinux.org/gamescope-session-git.git; cd gamescope-session-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r gamescope-session-git
 RUN git clone https://aur.archlinux.org/gamescope-session-steam-git.git; cd gamescope-session-steam-git; env EUID=1 makepkg -sir --noconfirm; cd ..; rm -r gamescope-session-steam-git
 # undo gamescope cap
-#RUN setcap -r /usr/bin/gamescope
+RUN setcap -r /usr/bin/gamescope
 
 # 32 bit wine pulseaudio
 RUN pacman -S --noconfirm lib32-libpulse
