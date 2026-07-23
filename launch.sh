@@ -48,6 +48,8 @@ podman run \
 	--cap-add=all \
 	--net=host \
 	--tz=local \
+	--tmpfs=/run:mode=0777 \
+	--tmpfs=/tmp:mode=0777 \
 	$XDG \
 	$DISP \
 	$AUDIO \
