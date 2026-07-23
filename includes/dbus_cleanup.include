@@ -1,0 +1,7 @@
+if [ -n "$DBUS_PROXY_PIDS" ]
+then
+	for pid in $DBUS_PROXY_PIDS
+	do
+		kill $pid
+	done
+fi

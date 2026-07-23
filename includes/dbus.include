@@ -1,0 +1,56 @@
+DBUS=""
+DBUS_PROXY_PIDS=""
+
+# configure your dbus filtes here
+allowed_session_interfaces=""
+owned_session_interfaces=""
+allowed_system_interfaces=""
+
+session_interface_arg=""
+if [ -n "$allowed_session_interfaces" ]
+then
+for if in $allowed_session_interfaces
+do
+	session_interface_arg="$session_interface_arg --talk=$if"
+done
+fi
+
+if [ -n "$owned_session_interfaces" ]
+then
+for if in $owned_session_interfaces
+do
+	session_interface_arg="$session_interface_arg --own=$if"
+done
+fi
+
+if [ -n "$allowed_system_interfaces" ]
+then
+system_interface_arg=""
+for if in $allowed_system_interfaces
+do
+	system_interface_arg="$system_interface_arg --talk=$if"
+done
+fi
+
+if [ -n "$DBUS_SESSION_BUS_ADDRESS" ]
+then
+	path=$(echo $DBUS_SESSION_BUS_ADDRESS | sed 's/unix:path=//')
+	if which xdg-dbus-proxy
+	then
+		rm -f ./session_dbus_proxy
+		xdg-dbus-proxy $DBUS_SESSION_BUS_ADDRESS ./session_dbus_proxy --filter $session_interface_arg &
+		DBUS_PROXY_PIDS="$DBUS_PROXY_PIDS $!"
+		DBUS="$DBUS -v ./session_dbus_proxy:'$path' --env DBUS_SESSION_BUS_ADDRESS='$DBUS_SESSION_BUS_ADDRESS'"
+	fi
+fi
+
+if [ -S "/run/dbus/system_bus_socket" ]
+then
+	if which xdg-dbus-proxy
+	then
+		rm -f ./system_dbus_proxy
+		xdg-dbus-proxy unix:path=/run/dbus/system_bus_socket ./system_dbus_proxy --filter $system_interface_arg &
+		DBUS_PROXY_PIDS="$DBUS_PROXY_PIDS $!"
+		DBUS="$DBUS -v ./system_dbus_proxy:/run/dbus/system_bus_socket"
+	fi
+fi

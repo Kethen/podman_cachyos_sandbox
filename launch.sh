@@ -13,6 +13,7 @@ source ./includes/dev.include
 source ./includes/fs.include
 source ./includes/mods.include
 source ./includes/deck_sdl.include
+#source ./includes/dbus.include
 
 echo $XDG
 echo $DISP
@@ -21,6 +22,7 @@ echo $DEV_MOUNT
 echo $MOUNT
 echo $MODS
 echo $DECK_SDL
+echo $DBUS
 
 TAG_NAME="podman_cachyos_sandbox"
 
@@ -53,6 +55,7 @@ podman run \
 	$MOUNT \
 	$MODS \
 	$DECK_SDL \
+	$DBUS \
 	-v ./script:/script:ro \
 	--entrypoint /bin/bash \
 	$TAG_NAME \
@@ -60,3 +63,4 @@ podman run \
 "
 
 source ./includes/mods_cleanup.include
+#source ./includes/dbus_cleanup.include
